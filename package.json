@@ -1,0 +1,13 @@
+{
+  "name": "simple_http",
+  "version": "1.0.0",
+  "description": "A basic http server",
+  "main": "./src/server.js",
+  "scripts": {
+    "start": "node ./src/server.js",
+    "pretest": "eslint ./src --fix",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Sam Easton",
+  "license": "UNLICENSED"
+}
