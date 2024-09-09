@@ -1,35 +1,51 @@
 
 
 const http = require('http');
-const fs = require('fs');
+const htmlHandler = require('./htmlResponses.js');
+const textHandler = require('./textResponses.js');
+const jsonHandler = require('./jsonResponses.js');
+const imageHandler = require('./imageResponse.js');
+
+
 
 const port = process.env.PORT || process.env.NODE_PORT || 3000;
-const index = fs.readFileSync(`${__dirname}/../client/client.html`);
+
 
 
 const onRequest = (request, response) => {
     switch(request.url) 
     {
-
         case '/':
-            response.writeHead(200, {
-                'Content-Type': 'text/html',
-                
-            });
-            response.write(index);
+            htmlHandler.getIndex(request, response);
+            break;
+        case '/page2':
+            htmlHandler.getPage2(request, response);
+            break;
+        case '/hello':
+            textHandler.getHello(request, response);
+            break;
+        case '/time':
+            textHandler.getTime(request, response);
+            break;
+        case '/helloJSON':
+            jsonHandler.getHelloJSON(request, response);
+            break;
+        case '/timeJSON':
+            jsonHandler.getTimeJSON(request, response);
+            break;
+        case '/dankmemes':
+            imageHandler.getMeme(request, response);
             break;
         default:
-            response.writeHead(404, {
-                'Contesnt-Type': 'text/plain',
-
-            });
-            response.write("WRONG PAGE!");
+            htmlHandler.getIndex(request, response);
             break;
 
     }
     
     response.end();
 };
+
+
 
 
 http.createServer(onRequest).listen(port, () => {
